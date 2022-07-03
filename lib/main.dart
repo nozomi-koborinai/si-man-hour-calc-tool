@@ -12,11 +12,18 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData.light(), // ライト用テーマ
-      darkTheme: ThemeData.dark(), // ダーク用テーマ
+      theme: createThemeData(false), // ライト用テーマ
+      darkTheme: createThemeData(true), // ダーク用テーマ
       themeMode: ThemeMode.system, // モードをシステム設定にする
       title: 'SI工数算出ツール',
       home: const CalcPage(),
     );
+  }
+
+  /// ThemeDataを生成する
+  /// param:isDark:True => ダークモード用テーマ, False => ライトモード用テーマ
+  ThemeData createThemeData(bool isDark) {
+    Brightness brightness = isDark ? Brightness.dark : Brightness.light;
+    return ThemeData(brightness: brightness, fontFamily: "Noto Sans JP");
   }
 }
