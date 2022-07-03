@@ -22,7 +22,7 @@ final startLabelProvider = Provider<String>((_) => 'SI開始時刻');
 final endLabelProvider = Provider<String>((_) => 'SI終了時刻');
 
 /// ヒントテキスト
-final hintTextProvider = Provider<String>((_) => 'CL分：担当者Ａ、担当者Ｂ');
+final hintTextProvider = Provider<String>((_) => 'CL：担当者Ａ、担当者Ｂ');
 
 /// ボタンキャプション
 final btnCaptionProvider = Provider<String>((_) => '計算');
