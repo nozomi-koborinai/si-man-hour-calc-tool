@@ -12,12 +12,12 @@ class CalcPageViewModel {
   void setRef(WidgetRef ref) => _ref = ref;
 
   // プロバイダ監視
-  get pageTitle => _ref.watch(titleProvider);
-  get managerLabel => _ref.watch(managerLabelProvider);
-  get startLabel => _ref.watch(startLabelProvider);
-  get endLabel => _ref.watch(endLabelProvider);
-  get hintText => _ref.watch(hintTextProvider);
-  get btnCaption => _ref.watch(btnCaptionProvider);
+  String get pageTitle => _ref.watch(titleProvider);
+  String get managerLabel => _ref.watch(managerLabelProvider);
+  String get startLabel => _ref.watch(startLabelProvider);
+  String get endLabel => _ref.watch(endLabelProvider);
+  String get hintText => _ref.watch(hintTextProvider);
+  String get btnCaption => _ref.watch(btnCaptionProvider);
   TimeOfDay get startTimeOfDayLabel =>
       _ref.watch(startTimeOfDayLabelStateProvider);
   set startTimeOfDayLabel(TimeOfDay timeOfDay) =>
@@ -29,6 +29,8 @@ class CalcPageViewModel {
       _ref.watch(managerControllerStateProvider.state).state;
   Result get result => _ref.watch(resultProvider.state).state;
   String get resultText => _ref.watch(resultTextProvider.state).state;
+  String get copiedCaption => _ref.watch(copiedCaptionProvider);
+  bool get opacityFlag => _ref.watch(flagStateProvider.state).state;
 
   /// 開始時刻押下時
   void onPressedFromStart(BuildContext context) async {
@@ -64,5 +66,14 @@ class CalcPageViewModel {
         Utils.instance.getManagerCountText(managerController.text);
 
     return '${managerController.text.isEmpty ? '' : '${managerController.text}\n'}${Utils.instance.toHourTextFromMinute(toDiffMinute)}h × $managerCountText人 = ${Utils.instance.toManHourTextFromMinute(toDiffMinute, int.parse(managerCountText))}人日';
+  }
+
+  /// コピーボタン押下時
+  void onPressedCopyButton() async {
+    Utils.instance.clipBoardCopy(resultText);
+    _ref.watch(flagStateProvider.state).state = false;
+    await Future.delayed(
+        Duration(seconds: Utils.instance.durationSecondsForRestore));
+    _ref.watch(flagStateProvider.state).state = true;
   }
 }

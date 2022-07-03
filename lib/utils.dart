@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import "package:intl/intl.dart";
+import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:si_man_hour_calc_tool/domain_layer/providers.dart';
 
 class Utils {
   /// singleton
@@ -7,6 +9,20 @@ class Utils {
 
   /// singletonを実現するためのプライベートコンストラクタ
   Utils._();
+
+  /// ウィジェット透明化にかける時間
+  final int durationSecondsForOpacity = 1;
+
+  /// ウィジェット透明化の復元にかける時間
+  final int durationSecondsForRestore = 2;
+
+  /// ThemeDataを生成する
+  /// param:isDark:True => ダークモード用テーマ, False => ライトモード用テーマ
+  ThemeData createThemeData(bool isDark, WidgetRef ref) {
+    Brightness brightness = isDark ? Brightness.dark : Brightness.light;
+    return ThemeData(
+        brightness: brightness, fontFamily: ref.watch(fontFamilyProvider));
+  }
 
   /// 端末がダークモードかどうか
   /// ture:ダークモード、false:ライトモード
@@ -31,4 +47,8 @@ class Utils {
     length = managerText.split(',').length;
     return length.toString();
   }
+
+  /// クリップボードコピー
+  void clipBoardCopy(String copyText) =>
+      Clipboard.setData(ClipboardData(text: copyText));
 }

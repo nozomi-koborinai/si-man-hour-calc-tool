@@ -34,6 +34,8 @@ class CalcPage extends ConsumerWidget {
               child: SizedBox(
                 width: 337.0,
                 child: TextFormField(
+                    onFieldSubmitted: (_) => vm.onPressedFromCalc(),
+                    autofocus: true,
                     controller: vm.managerController,
                     enabled: true,
                     style: TextStyle(
@@ -91,7 +93,43 @@ class CalcPage extends ConsumerWidget {
                   children: [
                     Padding(
                       padding: const EdgeInsets.symmetric(
-                          vertical: 30.0, horizontal: 20.0),
+                          vertical: 12.0, horizontal: 5.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          AnimatedOpacity(
+                            opacity: vm.opacityFlag ? 0.0 : 1.0,
+                            duration: Duration(
+                                seconds:
+                                    Utils.instance.durationSecondsForOpacity),
+                            child: Container(
+                              padding: const EdgeInsets.all(5.0),
+                              width: 75,
+                              decoration: BoxDecoration(
+                                color: Colors.blueGrey,
+                                border: Border.all(color: Colors.grey),
+                                borderRadius: BorderRadius.circular(50),
+                              ),
+                              child: Center(
+                                  child: Text(vm.copiedCaption,
+                                      style: const TextStyle(
+                                          color: Colors.white))),
+                            ),
+                          ),
+                          MaterialButton(
+                            onPressed: () => vm.onPressedCopyButton(),
+                            child: const Icon(Icons.copy),
+                            padding: const EdgeInsets.all(16),
+                            color: Colors.blueGrey,
+                            textColor: Colors.white,
+                            shape: const CircleBorder(),
+                          )
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 0.0, horizontal: 20.0),
                       child: Text(vm.resultText,
                           style: const TextStyle(
                               fontSize: 20.0,

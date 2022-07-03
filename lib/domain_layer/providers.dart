@@ -6,8 +6,11 @@ import 'package:si_man_hour_calc_tool/presentation_layer/calc_page_view_model.da
 /// グローバルでアクセス可能なプロバイダを管理するファイル
 
 //# CalcPageのProvider Start
+/// Google日本語フォント（中華フォント対策）
+final fontFamilyProvider = Provider<String>((_) => "Noto Sans JP");
+
 /// 投稿ページタイトル
-final titleProvider = Provider<String>((_) => 'SI工数算出ツール');
+final titleProvider = Provider<String>((_) => 'SI工数計算ツール');
 
 /// 担当者見出し
 final managerLabelProvider = Provider<String>((_) => '担当者');
@@ -23,6 +26,16 @@ final hintTextProvider = Provider<String>((_) => 'CL分：担当者Ａ、担当�
 
 /// ボタンキャプション
 final btnCaptionProvider = Provider<String>((_) => '計算');
+
+/// 工数結果用のテキスト
+final resultTextProvider =
+    StateProvider<String>((_) => '担当者（任意）、開始時刻、終了時刻を入力して【計算】ボタンをタップしてください');
+
+/// copiedキャプション
+final copiedCaptionProvider = Provider<String>((_) => 'copied！');
+
+/// アニメーションフラグ
+final flagStateProvider = StateProvider<bool>((_) => true);
 
 /// 担当者テキストコントローラ
 final managerControllerStateProvider = StateProvider.autoDispose((ref) =>
@@ -42,9 +55,5 @@ final calcPageViewModelProvider = Provider((_) => CalcPageViewModel());
 /// 工数結果用のモデル
 final resultProvider = StateProvider<Result>(
     (_) => const Result(manager: '', time: 0.0, peopleCount: 0, manHour: 0.0));
-
-/// 工数結果用のテキスト
-final resultTextProvider =
-    StateProvider<String>((_) => '担当者（任意）、開始時刻、終了時刻を入力して【計算】ボタンをタップしてください');
 
 //# CalcPageのProvider End
