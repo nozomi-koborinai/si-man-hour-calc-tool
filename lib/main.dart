@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData.light(), // ライト用テーマ
       darkTheme: ThemeData.dark(), // ダーク用テーマ
-      themeMode: ThemeMode.light, // モードをシステム設定にする
+      themeMode: ThemeMode.system, // モードをシステム設定にする
       title: 'SI工数算出ツール',
       home: const CalcPage(),
     );

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:si_man_hour_calc_tool/domain_layer/providers.dart';
+import 'package:si_man_hour_calc_tool/utils.dart';
 
 class CalcPage extends ConsumerWidget {
   const CalcPage({Key? key}) : super(key: key);
@@ -24,47 +25,49 @@ class CalcPage extends ConsumerWidget {
         centerTitle: true,
         title: Text(vm.pageTitle),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0),
-            child: SizedBox(
-              width: 337.0,
-              child: TextFormField(
-                  controller: vm.managerController,
-                  enabled: true,
-                  style: const TextStyle(color: Colors.black),
-                  obscureText: false,
-                  maxLines: 1,
-                  decoration: InputDecoration(
-                      labelText: vm.managerLabel, hintText: vm.hintText)),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
+              child: SizedBox(
+                width: 337.0,
+                child: TextFormField(
+                    controller: vm.managerController,
+                    enabled: true,
+                    style: TextStyle(
+                        color: Utils.instance.isDarkMode(context)
+                            ? Colors.white
+                            : Colors.black),
+                    obscureText: false,
+                    maxLines: 1,
+                    decoration: InputDecoration(
+                        labelText: vm.managerLabel, hintText: vm.hintText)),
+              ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 30.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                TextButton(
-                    child: Text(
-                      vm.startTimeOfDayLabel.format(context),
-                      style: textStyle,
-                    ),
-                    onPressed: () => vm.onPressedFromStart(context)),
-                Text('〜', style: Theme.of(context).textTheme.headline4),
-                TextButton(
-                    child: Text(
-                      vm.endTimeOfDayLabel.format(context),
-                      style: textStyle,
-                    ),
-                    onPressed: () => vm.onPressedFromEnd(context)),
-              ],
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 40.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  TextButton(
+                      child: Text(
+                        vm.startTimeOfDayLabel.format(context),
+                        style: textStyle,
+                      ),
+                      onPressed: () => vm.onPressedFromStart(context)),
+                  Text('〜', style: Theme.of(context).textTheme.headline4),
+                  TextButton(
+                      child: Text(
+                        vm.endTimeOfDayLabel.format(context),
+                        style: textStyle,
+                      ),
+                      onPressed: () => vm.onPressedFromEnd(context)),
+                ],
+              ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 30.0),
-            child: ElevatedButton(
+            ElevatedButton(
               style: ElevatedButton.styleFrom(
                   primary: Colors.blue,
                   onPrimary: Colors.black,
@@ -74,31 +77,33 @@ class CalcPage extends ConsumerWidget {
               child: Text(vm.btnCaption,
                   style: const TextStyle(fontSize: 17.5, color: Colors.white)),
             ),
-          ),
-          Padding(
-            padding:
-                const EdgeInsets.symmetric(vertical: 80.0, horizontal: 20.0),
-            child: Container(
-              alignment: Alignment.center,
-              width: 350,
-              height: 280,
-              decoration: BoxDecoration(
-                  color: Colors.grey[200],
-                  borderRadius: BorderRadius.circular(10)),
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 30.0, horizontal: 20.0),
-                    child: Text(vm.resultText,
-                        style: const TextStyle(
-                            fontSize: 20.0, fontStyle: FontStyle.italic)),
-                  ),
-                ],
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(vertical: 60.0, horizontal: 20.0),
+              child: Container(
+                alignment: Alignment.center,
+                width: 350,
+                height: 280,
+                decoration: BoxDecoration(
+                    color: Colors.grey[200],
+                    borderRadius: BorderRadius.circular(10)),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 30.0, horizontal: 20.0),
+                      child: Text(vm.resultText,
+                          style: const TextStyle(
+                              fontSize: 20.0,
+                              fontStyle: FontStyle.italic,
+                              color: Colors.black)),
+                    ),
+                  ],
+                ),
               ),
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }
