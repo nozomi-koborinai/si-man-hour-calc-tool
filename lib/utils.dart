@@ -36,9 +36,11 @@ class Utils {
   String toHourTextFromMinute(int minute) => (minute / 60).toStringAsFixed(2);
 
   /// 分 => 作業工数を算出する
+  // String toManHourTextFromMinute(int minute, int managerCount) =>
+  //     (double.parse((minute / 465).toStringAsFixed(2)) * managerCount)
+  //         .toStringAsFixed(2);
   String toManHourTextFromMinute(int minute, int managerCount) =>
-      (double.parse((minute / 465).toStringAsFixed(2)) * managerCount)
-          .toStringAsFixed(2);
+      ((minute * managerCount) / 465).toStringAsFixed(2);
 
   /// 担当者文字列から担当者の人数を算出する
   String getManagerCountText(String managerText) {
